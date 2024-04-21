@@ -2028,7 +2028,7 @@ $value_seven: 1550px;
         nav {
             .navbar-collapse {
                 max-height: 70vh;
-                overflow-y: scroll;
+                /* overflow-y: scroll; */
 
                 &::-webkit-scrollbar {
                     width: 8px;

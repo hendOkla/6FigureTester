@@ -230,7 +230,7 @@ const NavbarUser = () => {
                 <li className={`list ${currentPath === `/myProfile/` && "selected"}`}  onClick={handleItemClick}>
                     <a href="/myProfile/">
                         <span className="icon">
-                        <span className="icon"><FontAwesomeIcon icon={faHome}/></span>
+                        <span className="icon"><FontAwesomeIcon icon={faUser}/></span>
                         </span>
                         <span className="title">myProfile</span>
                     </a>

@@ -165,9 +165,9 @@ const Footer = () => {
             <div className="col-lg-12 col-md-12">
               <div className="copyright-area">
                 <p>
-                  Copyright &copy; {currentYear} StartP. All rights reserved by{" "}
-                  <a href="#" target="_blank">
-                    IT-Homs
+                  Copyright &copy; {currentYear} . All rights reserved by{"    "} 
+                  <a href="https://it4infinite.com/" target="_blank">
+                    it4infinite
                   </a>
                 </p>
               </div>
