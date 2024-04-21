@@ -46,21 +46,21 @@ const homeUser = () => {
                                 <div className="hosting-features-area pt-80 pb-50 bg-f9f6f6">
                                     <div className="container">
                                         <div className="section-title">
-                                            <h2>Home</h2>
+                                            <h2>Ads</h2>
                                             <div className="bar"></div>
                                         </div>      
                                         <Carousel>
                                             <Carousel.Item>
                                                 <img
                                                     className="d-block w-100"
-                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDjnCko3aMHJBVpBz9FSrFHcvR4pw4nzjpjEYjnLtn3GYKZW-jPdIGE_Unug&s"
+                                                    src="https://googiehost.com/blog/wp-content/uploads/2023/03/Forex-Trading-Platforms-A-Comprehensive-Guide-to-Popular-Choices.jpg"
                                                     alt="First slide"
                                                 />
                                             </Carousel.Item>
                                             <Carousel.Item>
                                                 <img
                                                     className="d-block w-100"
-                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDjnCko3aMHJBVpBz9FSrFHcvR4pw4nzjpjEYjnLtn3GYKZW-jPdIGE_Unug&s"
+                                                    src="https://d1krbhyfejrtpz.cloudfront.net/blog/wp-content/uploads/2022/07/07133628/Automated-Forex-Trading-Software-Development-A-Complete-Guide-4-1024x497.jpg"
                                                     alt="Second slide"
                                                 />
                                             </Carousel.Item>
