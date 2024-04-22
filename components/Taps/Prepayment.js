@@ -36,6 +36,8 @@ export const Prepayment = (props) => {
     if (!storedRadioValue) {
       setSelectedValue('1');
       setSelectedPrice(49.99)
+      localStorage.setItem('Price',49.99);
+      localStorage.setItem('radioValue',1);
 
     } else {
       setSelectedValue(localStorage.getItem('radioValue'));
