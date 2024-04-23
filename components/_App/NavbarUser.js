@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,11 @@ const NavbarUser = () => {
     const [currentPath, setCurrentPath] = useState("");
     const [selectedItem, setSelectedItem] = useState(null); 
     const [isBootstrapImported, setIsBootstrapImported] = useState(true);
+
+
+    const [open, setOpen] = useState(false);
+
+    let menuRef = useRef();
     
     // Add active class    
     const { locale } = router;
@@ -81,9 +86,19 @@ const NavbarUser = () => {
                 item.classList.add('selected');
             });
         });
+
+        let handler = (e)=>{
+        if(!menuRef.current.contains(e.target)){
+            setOpen(false);
+            console.log(menuRef.current);
+        }      
+        };
+        document.addEventListener("mousedown", handler);
+
         return () => {
             items.forEach((item) => {
                 item.removeEventListener('click',handleItemClick);
+                document.removeEventListener("mousedown", handler);
             });
         };        
     }, [isBootstrapImported ,router]);
@@ -143,70 +158,35 @@ const NavbarUser = () => {
                 <div className="toggle" onClick={handleToggle}>                    
                     <FontAwesomeIcon icon={faBars} />
                 </div>
-                <div className=" d-flex justify-content-end">
-                    <div className="startp-nav">
-                        <div className="container">
-                            <nav className="navbar navbar-expand-md navbar-light">
-                                <div className={classOne} id="navbarSupportedContent">
-                                    <ul className="navbar-nav ms-auto">             
-                                        <li className="nav-item">
-                                            <Link
-                                            href="#"
-                                            onClick={toggleNavbar}
-                                            className={`nav-link ${
-                                                currentPath == "#" && "active"
-                                            }`}
-                                            >
-                                            <img src="/images/logo-white.png" alt="logo" style={{width:'35px'}} />
-                                            </Link>
-                                            <ul className="dropdown-menu" style={{ left: 'auto' , right:'0px'}}>
-                                                <li className="nav-item">
-                                                    <Link
-                                                        href="#"
-                                                        className={`nav-link ${
-                                                            currentPath == "#" && "active"
-                                                        }`}
-                                                        > 
-                                                            <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faUser}/></span>
-                                                            <span className="title">{window.localStorage.getItem('username')}</span>          
-                                                    </Link>
-                    
-                                    
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link
-                                                    href="/changePassword/"
-                                                    className={`nav-link ${
-                                                        currentPath == "#" && "active"
-                                                    }`}
-                                                    > 
-                                                        <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faLock}/></span>
-                                                        <span className="title">Change Password</span>
-                                                    </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link
-                                                    href="#"
-                                                    onClick={handleLogout}
-                                                    className={`nav-link ${
-                                                        currentPath == "#" && "active"
-                                                    }`}
-                                                    > 
-                                                        <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faSignOutAlt}/></span>
-                                                        <span className="title">LogOut</span>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>                  
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
+                <div className='menu-container' ref={menuRef}>
+                    <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+                    <img src="/images/logo-white.png"></img>
                     </div>
-                </div>                    
+
+                    <div className={`dropdown-menus ${open? 'active' : 'inactive'}`} >
+                        <h3>
+                            {window.localStorage.getItem('username')}<br/>
+                            <span>{window.localStorage.getItem('auth_token')}   {window.localStorage.getItem('lname')}</span>
+                        </h3>
+
+                        <ul style={{padding:"0px 0.5rem"}}>
+                            <li className = 'dropdownItem'>                            
+                                <a href="/changePassword/">
+                                    <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faLock}/></span>
+                                    Change Password
+                                </a>
+                            </li>
+                            <li className = 'dropdownItem'>                            
+                                <a href="#" onClick={handleLogout}>
+                                    <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faSignOutAlt}/></span>
+                                    LogOut
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                  
             </div>
-        </nav>
-        
+        </nav>        
         
         <div className="navigation">
             <ul>
@@ -298,4 +278,6 @@ const NavbarUser = () => {
   );
 };
 
+
 export default NavbarUser;
+

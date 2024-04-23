@@ -42,6 +42,7 @@ const Login = () => {
                 if(res.data.status===200){
                     localStorage.setItem('auth_token',res.data.token);
                     localStorage.setItem('auth_token',res.data.fname); 
+                    localStorage.setItem('lname',res.data.lname); 
                     localStorage.setItem('id',res.data.id);
                     localStorage.setItem('username',res.data.username);
                     localStorage.setItem('link',res.data.link); 

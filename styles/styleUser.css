@@ -708,6 +708,103 @@ body {
   margin: 0px 5px;
   
 }
+/* //////////////////////// */
+
+:root {
+  --border-radius: 8px;
+  --speed: 500ms;
+}
+.menu-trigger img{
+  position: absolute !important;
+  top: 10px !important;
+  right: 20px !important;
+  width: 35px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+}
+
+.dropdown-menus{
+  position: absolute !important;
+  top: 100px !important;
+  right: 20px !important;
+  background-color: #fff !important;
+  border-radius: var(--border-radius) !important;
+  padding: 10px 10px !important;
+  width: 200px !important;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 27%); 
+}
+.dropdown-menus h3{
+  font-size: 20px;
+  margin:  0px 20px;
+}
+.dropdown-menus h3 span{
+  font-size: 15px !important;
+  color:rgb(197, 196, 196) !important;
+}
+
+.dropdown-menus::before{
+  content: '' !important;
+  position: absolute !important;
+  top: -5px !important;
+  right: 20px !important;
+  height: 20px !important;
+  width: 20px !important;
+  background: var(--secondary-bg) !important;
+  transform: rotate(45deg) !important;
+}
+
+.dropdown-menus.active{
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  transition: var(--speed) ease !important;
+}
+
+.dropdown-menus.inactive{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-20px) !important;
+  transition: var(--speed) ease !important;
+}
+
+h3 span{
+  font-size: 14px !important;
+  color: var(--secondary-text-color) !important;
+  font-weight: 400 !important;
+}
+
+.dropdown-menus ul li{
+  padding: 10px  0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.dropdown-menus ul li:hover a{
+  color: #ffc107 !important;
+  cursor: pointer !important;
+}
+
+.dropdown-menus ul li:hover span{
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
+.dropdownItem{
+  display: flex !important;
+  margin: 10px auto !important;
+}
+
+.dropdownItem img{
+  max-width: 20px !important;
+  margin-right: 10px !important;
+  opacity: 0.5 !important;
+  transition: var(--speed) !important;
+}
+
+.dropdownItem a{
+  max-width: 100% !important;
+  margin-left: 0px !important;
+  transition: var(--speed) !important;
+}
 
 
 
