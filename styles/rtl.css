@@ -136,6 +136,12 @@
   padding-left: 20px;
   padding-right: 95px;
 }
+
+[dir=rtl] .icon{
+  float: right;
+  padding:0px 10px
+}
+
 [dir=rtl] .single-features .icon {
   left: auto;
   right: 20px;
@@ -898,3 +904,252 @@
 [dir=rtl] .slick-slide {
   float: left;
 }/*# sourceMappingURL=rtl.css.map */
+
+[dir=rtl] .menu-trigger img {
+  position: absolute !important;
+  top: 10px !important;
+  left: 20px !important;
+  right: auto !important;
+  width: 35px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+}
+
+[dir=rtl] .dropdown-menus {
+  position: absolute !important;
+  top: 100px !important;
+  left: 20px !important;
+  right: auto !important;
+  background-color: #fff !important;
+  border-radius: var(--border-radius) !important;
+  padding: 10px 10px !important;
+  width: 200px !important;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 27%);
+}
+
+/* //////////////outside curve/////////////// */
+
+[dir =rtl] .navigation {
+  position: fixed;
+  width: 200px;
+  background: var(--blue);
+  border-right: 10px solid var(--blue);
+  border-left: aliceblue !important;
+  transition: 0.5s;
+  overflow: hidden;
+  height: calc(100vh - 75px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  top: 75px;
+}
+
+[dir =rtl].navigation ul {
+  position: absolute;
+  top: 0;
+  right: 0; /* Add right: 0 */
+  left: auto !important;
+  width: 100%;
+  padding-left: 0px !important; /* Change padding-left to padding-right */
+  padding-right: auto !important;
+}
+
+[dir =rtl] .navigation ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; /* Change border-top-left-radius to border-top-right-radius, and border-bottom-left-radius to border-bottom-right-radius */
+}
+
+
+/* --------- curve outside ---------- */
+[dir =rtl] .navigation ul li:hover a::before,
+[dir =rtl] .navigation ul li.hovered a::before {
+  content: "";
+  position: absolute;
+  left: -5px; /* Change right to left */
+  right: auto !important;
+  top: -50px;
+  width: 65px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: -35px 35px 0 10px var(--white); /* Change 35px to -35px */
+  pointer-events: none;
+}
+[dir =rtl] .navigation ul li:hover a::after,
+[dir =rtl] .navigation ul li.hovered a::after {
+  content: "";
+  position: absolute;
+  left: -5px; /* Change right to left */
+  right: auto !important;
+  bottom: -50px;
+  width: 65px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: -35px -35px 0 10px var(--white); /* Change 35px to -35px */
+  pointer-events: none;
+}
+
+/* ===================== Main ===================== */
+[dir =rtl] .main {
+  position: absolute;
+  width: calc(100% - 200px);
+  right: 200px; /* Change left to right */
+  min-height: 100vh;
+  background: var(--white);
+  transition: 0.5s;
+  padding-top: 80px;
+}
+[dir =rtl] .main.active {
+  width: calc(100% - 80px);
+  right: 80px; /* Change left to right */
+}
+
+[dir =rtl] .user img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: auto !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+[dir =rtl] .recentCustomers .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: auto !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ====================== Responsive Design ========================== */
+@media (max-width: 991px) {
+  [dir =rtl] .navigation {
+    left: -300px;
+    right:auto !important
+  }
+  [dir =rtl] .navigation.active {
+    width: 300px;
+    left: 0;
+    right: auto !important;
+  }
+  [dir =rtl] .main {
+    width: 100%;
+    left: 0;
+    right: auto !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 912px) {
+  
+  [dir =rtl] .navigation.active {
+    width: 200px;
+    left: 0;
+    right: auto !important;
+  }
+  [dir =rtl] .main.active {
+    left: 200px;
+    right: auto !important;
+  }
+}
+
+
+@media (max-width: 480px) {
+  [dir =rtl] .navigation {
+    width: 100%;
+    left: -100%;
+    right: auto !important;
+    z-index: 1000;
+  }
+  [dir =rtl] .navigation.active {
+    width: 100%;
+    left: 0;
+    right: auto !important;
+  }
+  [dir =rtl] .main.active .toggle {
+    color: #fff;
+    position: fixed;
+    right: 0;
+    left: initial;
+  }
+}
+
+[dir =rtl] .selected {
+  background: linear-gradient(100deg, #ff7800 70%,#ff389f );
+  pointer-events: visible;
+  opacity: 0.9; /* Adjust the opacity for the soft selected effect */
+  transition: opacity 0.3s ease; /* Add a transition for opacity */
+}
+
+[dir =rtl] .selected::before,
+[dir =rtl] .navigation ul li.selected a::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  right: auto !important;
+  top: -50px;
+  width: 65px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 70%;
+  box-shadow: -35px 35px 0 10px #ff730c;
+  pointer-events: none;
+  z-index: 20000;
+}
+
+[dir =rtl] .selected::after,
+[dir =rtl] .navigation ul li.selected a::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  right: auto !important;
+  bottom: -50px;
+  width: 65px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: -35px -35px 0 10px #ff730c;
+  pointer-events: none;
+}
+
+
+
+
+
+[dir =rtl].dropdown-menu[data-bs-popper] {
+  top: 100%;
+  right: 0px !important;
+  left: auto !important;
+  margin-top: .125rem;
+}
+
+
+
+
+
+
+
+
+[dir =rtl].go2150698616:before {
+  position: relative;
+  float: left;
+  left: 45% !important;
+  right: auto !important;
+  width: 3em !important;
+  line-height: 3em !important;
+  border-radius: 50%;
+  bottom: -3.5rem !important;
+}
+
+
+
+

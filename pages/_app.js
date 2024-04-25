@@ -7,10 +7,13 @@ import 'react-accessible-accordion/dist/fancy-example.css'
 import "swiper/css";
 import "swiper/css/bundle";
 
+
+
 // Global Style
 import '@/styles/style.css'
 // Global Responsive Style
 import '@/styles/responsive.css'
+import '@/styles/styleUser.css'
 // Global RTL Style
 import '@/styles/rtl.css'
 
@@ -34,7 +37,7 @@ axios.interceptors.request.use(function(config){
 
 
 
-import 'styles/styleUser.css'
+
 // Multicolor if you want this color comment out 
 // import '@/styles/colors/brink-pink-style.css'
 // import '@/styles/colors/pink-style.css'

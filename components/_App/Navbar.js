@@ -3,11 +3,16 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import * as Icon from "react-feather";
 import { useSelector } from "react-redux";
+import { getDictionary } from "getDictionary";
+
 
 const Navbar = () => {
   // Add active class
   const [currentPath, setCurrentPath] = useState("");
   const router = useRouter();
+  const { pathname, query } = router;
+  const [translations, setTranslations] = useState(null);
+  const { locale } = router;
   // console.log(router.asPath)
 
   useEffect(() => {
@@ -30,6 +35,13 @@ const Navbar = () => {
         elementId.classList.remove("is-sticky");
       }
     });
+
+        //for translation 
+        async function fetchTranslations() {
+          const translations = await getDictionary(locale);
+          setTranslations(translations);
+      }
+      fetchTranslations();
   });
 
   const classOne = menu
@@ -121,6 +133,51 @@ const Navbar = () => {
                     >
                       Contact
                     </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      href="#"
+                      onClick={toggleNavbar}
+                      className={`nav-link`}
+                    >
+                      <Icon.Globe/>
+                    </Link>
+
+                    <ul className="dropdown-menu">
+                      <li className="nav-item">
+                        <a
+                          href={`/sp/${pathname}?${new URLSearchParams(query).toString()}`}
+                          onClick={toggleNavbar}
+                          className={`nav-link ${
+                            locale == "en" && "active"
+                          }`}
+                        >
+                          {translations ? translations.form.en : ''}
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          href={`/ar/${pathname}?${new URLSearchParams(query).toString()}`}
+                          onClick={toggleNavbar}
+                          className={`nav-link ${
+                            locale == "ar" && "active"
+                          }`}
+                        >
+                          {translations ? translations.form.ar : ''}
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a
+                          href={`/sp/${pathname}?${new URLSearchParams(query).toString()}`}
+                          onClick={toggleNavbar}
+                          className={`nav-link ${
+                            locale == "sp" && "active"
+                          }`}
+                        >
+                          {translations ? translations.form.sp : ''}
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>

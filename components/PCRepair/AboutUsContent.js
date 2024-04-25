@@ -30,6 +30,30 @@ const AboutUsContent = () => {
                                     src='/images/about1.jpg'
                                     className="animate__animated animate__fadeInDown" 
                                     alt="image" 
+                                    style={{width:"250px"}}
+                                />
+                            
+                                <img 
+                                    src='/images/about2.jpg'
+                                    className="animate__animated animate__zoomIn" 
+                                    alt="image" 
+                                />
+                        
+                                <img 
+                                    src='/images/about3.jpg'
+                                    className="animate__animated animate__fadeInUp" 
+                                    alt="image" 
+                                    style={{width:"250px"}}
+                                />
+                            
+                                <img 
+                                    src='/images/about-shape1.png'
+                                    alt="image" 
+                                />
+
+                                <img 
+                                    src='/images/about-shape2.png'
+                                    alt="image" 
                                 />
                             </div>
                         </div>

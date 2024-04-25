@@ -83,6 +83,10 @@ body {
 .navigation ul li.hovered a {
   color: var(--blue);
 }
+.icon{
+  float: left;
+  padding:'0px 10px'
+}
 
 .navigation ul li a .icon {
   position: relative;
@@ -732,6 +736,7 @@ body {
   padding: 10px 10px !important;
   width: 200px !important;
   box-shadow: 0 2px 20px rgb(0 0 0 / 27%); 
+  font-size: 0.9rem;
 }
 .dropdown-menus h3{
   font-size: 20px;

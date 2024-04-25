@@ -3,8 +3,6 @@ import React,{ useState } from 'react';
 import NavbarUser from "@/components/_App/NavbarUser";
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import axios from "axios";
 import { Carousel } from 'react-bootstrap';
 
 

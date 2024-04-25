@@ -7,6 +7,7 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
@@ -23,6 +24,7 @@ const NavbarUser = () => {
 
 
     const [open, setOpen] = useState(false);
+    const [openLang, setOpenLang] = useState(false);
 
     let menuRef = useRef();
     
@@ -30,10 +32,10 @@ const NavbarUser = () => {
     const { locale } = router;
     const [dynamicId, setDynamicId] = useState();
     const [menu, setMenu] = React.useState(true);
-    const toggleNavbar = () => {setMenu(!menu);};
     const [categoryList,setCategoryList] = useState([]);
     const [BookList,setBookList] = useState([]);
     const [translations, setTranslations] = useState(null);
+    const { pathname, query } = router;
 
     const handleToggle = () => {
         const navigation = document.querySelector(".navigation");
@@ -62,7 +64,6 @@ const NavbarUser = () => {
         fetchCategoryList(); 
         fetchBookList(); 
         
-
         //for translation 
         async function fetchTranslations() {
             const translations = await getDictionary(locale);
@@ -88,10 +89,11 @@ const NavbarUser = () => {
         });
 
         let handler = (e)=>{
-        if(!menuRef.current.contains(e.target)){
-            setOpen(false);
-            console.log(menuRef.current);
-        }      
+            if(!menuRef.current.contains(e.target)){
+                setOpen(false);
+                setOpenLang(false);
+                console.log(menuRef.current);
+            }      
         };
         document.addEventListener("mousedown", handler);
 
@@ -158,9 +160,33 @@ const NavbarUser = () => {
                 <div className="toggle" onClick={handleToggle}>                    
                     <FontAwesomeIcon icon={faBars} />
                 </div>
+                <div className="toggle" ref={menuRef}>                    
+                    <div className='menu-trigger' onClick={()=>{setOpenLang(!openLang)}}>
+                        <FontAwesomeIcon icon={faGlobe} />
+                    </div>
+                    <div className={`dropdown-menus ${openLang? 'active' : 'inactive'}`} >
+                        <ul style={{padding:"0px 0.5rem"}}>
+                            <li className = 'dropdownItem'>                            
+                                <a href={`${pathname}?${new URLSearchParams(query).toString()}`}>
+                                {translations ? translations.form.en : ''}
+                                </a>
+                            </li>
+                            <li className = 'dropdownItem'>                            
+                                <a href={`/ar/${pathname}?${new URLSearchParams(query).toString()}`}>
+                                {translations ? translations.form.ar : ''}
+                                </a>
+                            </li>
+                            <li className = 'dropdownItem'>                            
+                                <a href={`/sp/${pathname}?${new URLSearchParams(query).toString()}`}>
+                                {translations ? translations.form.sp : ''}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>                    
+                </div>
                 <div className='menu-container' ref={menuRef}>
                     <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
-                    <img src="/images/logo-white.png"></img>
+                        <img src="/images/logo-white.png"></img>
                     </div>
 
                     <div className={`dropdown-menus ${open? 'active' : 'inactive'}`} >
@@ -172,13 +198,13 @@ const NavbarUser = () => {
                         <ul style={{padding:"0px 0.5rem"}}>
                             <li className = 'dropdownItem'>                            
                                 <a href="/changePassword/">
-                                    <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faLock}/></span>
+                                    <span className="icon"><FontAwesomeIcon icon={faLock}/></span>
                                     Change Password
                                 </a>
                             </li>
                             <li className = 'dropdownItem'>                            
                                 <a href="#" onClick={handleLogout}>
-                                    <span className="icon" style={{float:'left', padding:'0px 10px'}}><FontAwesomeIcon icon={faSignOutAlt}/></span>
+                                    <span className="icon"><FontAwesomeIcon icon={faSignOutAlt}/></span>
                                     LogOut
                                 </a>
                             </li>
@@ -199,35 +225,23 @@ const NavbarUser = () => {
                     </a>
                 </li>
                 <li className={`list ${currentPath === `/homeUser/` && "selected"}`}  onClick={handleItemClick}>
-                    <a href="/homeUser/">
+                    <Link href={{ pathname:'/homeUser/'}} >
                         <span className="icon">
                         <span className="icon"><FontAwesomeIcon icon={faHome}/></span>
                         </span>
                         <span className="title">Home</span>
-                    </a>
+                    </Link>
                 </li>
 
                 <li className={`list ${currentPath === `/myProfile/` && "selected"}`}  onClick={handleItemClick}>
-                    <a href="/myProfile/">
+                    <Link href={{ pathname:'/myProfile/'}}>
                         <span className="icon">
                         <span className="icon"><FontAwesomeIcon icon={faUser}/></span>
                         </span>
                         <span className="title">myProfile</span>
-                    </a>
+                    </Link>
                 </li>
-                <li className={`list ${currentPath === `/#/?id=${dynamicId}` && "selected"}`}  onClick={handleItemClick}>
-                    <b></b>
-                    <b></b>
-                    <a href="#" className="dropdown-btn">
-                        <span className="icon"><FontAwesomeIcon icon={faBook}/></span>
-                        <span className="title">{translations ? (translations.form.linkSharing) : ('')}</span>
-                    </a>
-                    <div className="dropdown-content">
-                        <Link  className="link-selected" href="#" onClick={copiedClick}>
-                            <span className="title" style={{fontSize:"10px", whiteSpace:"pre-line", lineHeight:"15px", width:"100%"}}>{window.localStorage.getItem('link')}</span>
-                        </Link>
-                    </div>
-                </li>
+
                 <li className={`list ${currentPath === `/courses/?id=${dynamicId}` && "selected"}`}  onClick={handleItemClick}>
                     <b></b>
                     <b></b>
@@ -269,6 +283,19 @@ const NavbarUser = () => {
                                 )
                             })
                         }
+                    </div>
+                </li>
+                <li className={`list ${currentPath === `/#/?id=${dynamicId}` && "selected"}`}  onClick={handleItemClick}>
+                    <b></b>
+                    <b></b>
+                    <a href="#" className="dropdown-btn">
+                        <span className="icon"><FontAwesomeIcon icon={faBook}/></span>
+                        <span className="title">{translations ? (translations.form.linkSharing) : ('')}</span>
+                    </a>
+                    <div className="dropdown-content">
+                        <Link  className="link-selected" href="#" onClick={copiedClick}>
+                            <span className="title" style={{fontSize:"10px", whiteSpace:"pre-line", lineHeight:"15px", width:"100%"}}>{window.localStorage.getItem('link')}</span>
+                        </Link>
                     </div>
                 </li>
                 
