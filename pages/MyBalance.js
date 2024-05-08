@@ -215,7 +215,7 @@ const courses = () => {
                                                         </form>
                                                     </div>
                                                      <div style={{ height: "50vh" }}>
-                                                        {/* <SortableTree
+                                                      {/*   <SortableTree
                                                         treeData={treeData}
                                                         onChange={(treeData) => updateTreeData(treeData)}
                                                         /> */}
