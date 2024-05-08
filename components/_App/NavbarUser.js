@@ -8,6 +8,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
@@ -232,7 +233,6 @@ const NavbarUser = () => {
                         <span className="title">Home</span>
                     </Link>
                 </li>
-
                 <li className={`list ${currentPath === `/myProfile/` && "selected"}`}  onClick={handleItemClick}>
                     <Link href={{ pathname:'/myProfile/'}}>
                         <span className="icon">
@@ -289,7 +289,7 @@ const NavbarUser = () => {
                     <b></b>
                     <b></b>
                     <a href="#" className="dropdown-btn">
-                        <span className="icon"><FontAwesomeIcon icon={faBook}/></span>
+                        <span className="icon"><FontAwesomeIcon icon={faLink}/></span>
                         <span className="title">{translations ? (translations.form.linkSharing) : ('')}</span>
                     </a>
                     <div className="dropdown-content">
@@ -297,6 +297,14 @@ const NavbarUser = () => {
                             <span className="title" style={{fontSize:"10px", whiteSpace:"pre-line", lineHeight:"15px", width:"100%"}}>{window.localStorage.getItem('link')}</span>
                         </Link>
                     </div>
+                </li>
+                <li className={`list ${currentPath === `/MyBalance/` && "selected"}`}  onClick={handleItemClick}>
+                    <Link href={{ pathname:'/MyBalance/'}} >
+                        <span className="icon">
+                        <span className="icon"><FontAwesomeIcon icon={faHome}/></span>
+                        </span>
+                        <span className="title">{translations ? (translations.form.MyBalance) : ('')}</span>
+                    </Link>
                 </li>
                 
             </ul>
