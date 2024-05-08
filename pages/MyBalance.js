@@ -4,7 +4,7 @@ import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
 import axios from "axios";
 /* import SortableTree, {toggleExpandedForAll} from "react-sortable-tree";
-import "react-sortable-tree/style.css"; */
+import "react-sortable-tree/style.css";  */
 
 
 const courses = () => {
@@ -214,12 +214,12 @@ const courses = () => {
                                                         >
                                                         </form>
                                                     </div>
-                                                   {/*  <div style={{ height: "50vh" }}>
-                                                        <SortableTree
+                                                     <div style={{ height: "50vh" }}>
+                                                        {/* <SortableTree
                                                         treeData={treeData}
                                                         onChange={(treeData) => updateTreeData(treeData)}
-                                                        />
-                                                    </div> */}
+                                                        /> */}
+                                                    </div> 
                                                 </div>
                                                 <div className='row'>
                                                     <div className="cart-table table-responsive" style={{ margin: '0 auto', width: '75%' }}>
