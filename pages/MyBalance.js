@@ -3,8 +3,11 @@ import NavbarUser from "@/components/_App/NavbarUser";
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
 import axios from "axios";
-/* import SortableTree, {toggleExpandedForAll} from "react-sortable-tree";
-import "react-sortable-tree/style.css";  */
+
+
+import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
+
 
 
 const courses = () => {
@@ -184,6 +187,16 @@ const courses = () => {
     function collapseAll() {
     expand(false);
     }
+    const treeData1 = [
+        {
+          itemId: '1',
+          label: username,
+          items: [
+            { itemId: '2', label: 'File 1.txt' },
+            { itemId: '3', label: 'Subfolder', items: [{ itemId: '4', label: 'File 2.png' }] },
+          ],
+        }
+      ];
     return (
         <>
             {translations ? (
@@ -214,11 +227,16 @@ const courses = () => {
                                                         >
                                                         </form>
                                                     </div>
-                                                     <div style={{ height: "50vh" }}>
-                                                      {/*   <SortableTree
-                                                        treeData={treeData}
-                                                        onChange={(treeData) => updateTreeData(treeData)}
-                                                        /> */}
+                                                     <div style={{ height: "50vh" }}>                                               
+                                                        <SimpleTreeView aria-label="file system navigator" sx={{ height: 250 }}>
+                                                        {treeData1.map((node) => (
+                                                            <TreeItem key={node.itemId} itemId={node.itemId} label={node.label}>
+                                                            {node.items && node.items.map((child) => (
+                                                                <TreeItem key={child.itemId} itemId={child.itemId} label={child.label} />
+                                                            ))}
+                                                            </TreeItem>
+                                                        ))}
+                                                        </SimpleTreeView>
                                                     </div> 
                                                 </div>
                                                 <div className='row'>
