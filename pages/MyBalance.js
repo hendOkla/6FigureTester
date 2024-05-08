@@ -5,8 +5,13 @@ import { useRouter } from 'next/router';
 import axios from "axios";
 
 
+import IndeterminateCheckBoxRoundedIcon from '@mui/icons-material/IndeterminateCheckBoxRounded';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
+import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
+import { styled, alpha } from '@mui/material/styles';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
-import { TreeItem } from '@mui/x-tree-view/TreeItem';
+import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
+
 
 
 
@@ -90,113 +95,74 @@ const courses = () => {
     },[]);
 
 
-    ////////For Tree////////////////////
+    
 
 
-    const [treeData, setTreeData] = useState([
-        {
-            title: username,
-            isDirectory: true,
-            expanded: true,
-            children: [], // Add an empty children array
+    
+    const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
+        [`& .${treeItemClasses.content}`]: {
+          padding: theme.spacing(0.5, 1),
+          margin: theme.spacing(0.2, 0),
         },
-    ]);
+        [`& .${treeItemClasses.iconContainer}`]: {
+          '& .close': {
+            opacity: 0.3,
+          },
+        },
+        [`& .${treeItemClasses.groupTransition}`]: {
+          marginLeft: 15,
+          paddingLeft: 18,
+          borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
+        },
+      }));
+      
+      function ExpandIcon(props) {
+        return <AddBoxRoundedIcon {...props} sx={{ opacity: 0.8 }} />;
+      }
+      
+      function CollapseIcon(props) {
+        return <IndeterminateCheckBoxRoundedIcon {...props} sx={{ opacity: 0.8 }} />;
+      }
+      
+      function EndIcon(props) {
+        return <DisabledByDefaultRoundedIcon {...props} sx={{ opacity: 0.3 }} />;
+      }
+      
 
+    const [treeItems, setTreeItems] = useState([]);
     useEffect(() => {
-        const username = localStorage.getItem("username");
-    
-        const updatedSeed = [
-            {
-            title: username,
-            isDirectory: true,
-            expanded: true,
-            children: [],
-            },
-        ];
-        setTreeData(updatedSeed);
-        
-    
-        axios.get(`/api/countWeek/${localStorage.getItem('username')}`).then(res => {
-            let sum = 0;
-            if (res.data.status === 200) {
-                const payments = res.data.payment; // Assuming payment is an array
-                // Variable to store the sum of subtitle values        
-                const promises = payments.map((payment) => {
-                    return axios.get(`/api/countWeek/${payment.username}`).then((response) => {
-                        if (response.data.status === 200) {
-                            const childNode = {
-                                title: payment.username,
-                                children: response.data.status === 200 && Array.isArray(response.data.payment)
-                                    ? response.data.payment.map((payment) => {
-                                        const subtitleValue = 0.5; // Set the subtitle value to be added to the sum
-                                        sum += subtitleValue; // Add the subtitle value to the sum
-        
-                                        return {
-                                            title: payment.username,
-                                            subtitle: "Commission is: " + subtitleValue
-                                        };
-                                    })
-                                    : [],
-                                subtitle: "Commission is: " + (payment.created_at === payment.updated_at ? payment.commission : 25),
-                            };
-                            updatedSeed[0].children.push(childNode);
-        
-                            if (typeof childNode.subtitle === 'string') {
-                                const subtitleValue = parseFloat(childNode.subtitle.split(': ')[1]);
-                                sum += subtitleValue;
-                            }
-                        } else {
-                            const childNode = {
-                                title: payment.username,
-                                subtitle: "Commission is: " + (payment.created_at === payment.updated_at ? payment.commission : 25),
-                            };
-                            updatedSeed[0].children.push(childNode);
-        
-                            if (typeof childNode.subtitle === 'string') {
-                                const subtitleValue = parseFloat(childNode.subtitle.split(': ')[1]);
-                                sum += subtitleValue;
-                            }
-                        }
-                        setTreeData(updatedSeed); // Update the tree data state with the updatedSeed
-                    });
-                });
-
-                
-                
-        
-                // Wait for all Axios requests to finish
-                Promise.all(promises).then(() => {
-                    console.log('Sum of subtitle values:', sum);
-                    setTotalSum(sum);
-                });
-            }
-        });
+        axios.get(`/api/countWeek/${localStorage.getItem('username')}`)
+          .then(res => {
+            const data = res.data.payment;
+            setTreeItems(data);
+        })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
     }, []);
-    function updateTreeData(treeData) {
-        setTreeData(treeData);
-    }
-    function expand(expanded) {
-        setTreeData(
-            toggleExpandedForAll({
-            treeData,
-            expanded
-            })
-        );
-    }
 
-    function collapseAll() {
-    expand(false);
-    }
-    const treeData1 = [
-        {
-          itemId: '1',
-          label: username,
-          items: [
-            { itemId: '2', label: 'File 1.txt' },
-            { itemId: '3', label: 'Subfolder', items: [{ itemId: '4', label: 'File 2.png' }] },
-          ],
-        }
-      ];
+
+    const [fetchedData, setFetchedData] = useState({}); // Additional data per item
+  
+    useEffect(() => {
+      // Assuming treeItems contains data with usernames
+      treeItems.forEach(item => {
+        const fetchData = async () => {
+          const response = await axios.get(`/api/countWeek/${item.username}`);
+          if (response.status === 200) {
+            setFetchedData(prevData => ({
+              ...prevData,
+              [item.id]: response.data.payment, // Assume data is in response.data.payment
+            }));
+          }
+        };
+        fetchData();
+      });
+    }, [treeItems]); 
+    
+
+
+    
     return (
         <>
             {translations ? (
@@ -216,26 +182,32 @@ const courses = () => {
                                             <div className="blog-area">
                                                 <div className="container">
                                                 <div className="row">
-                                                    <div style={{ flex: "0 0 auto", padding: "0 15px" }}>
-                                                        <button className='btn btn-primary' onClick={collapseAll}>Display All Balance: {totalSum} </button>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <form
-                                                        style={{ display: "inline-block" }}
-                                                        onSubmit={(event) => {
-                                                            event.preventDefault();
+                                                    <div style={{ height: "50vh" }}>                                               
+                                                        <SimpleTreeView
+                                                        aria-label="customized"
+                                                        defaultExpandedItems={['1']}
+                                                        slots={{
+                                                        expandIcon: ExpandIcon,
+                                                        collapseIcon: CollapseIcon,
+                                                        endIcon: EndIcon,
                                                         }}
+                                                        sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
                                                         >
-                                                        </form>
-                                                    </div>
-                                                     <div style={{ height: "50vh" }}>                                               
-                                                        <SimpleTreeView aria-label="file system navigator" sx={{ height: 250 }}>
-                                                        {treeData1.map((node) => (
-                                                            <TreeItem key={node.itemId} itemId={node.itemId} label={node.label}>
-                                                            {node.items && node.items.map((child) => (
-                                                                <TreeItem key={child.itemId} itemId={child.itemId} label={child.label} />
+                                                            <CustomTreeItem key="1" itemId="1" label={username}>
+                                                            {treeItems.map(item => (
+                                                                <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
+                                                                {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
+                                                                    fetchedData[item.id].map(payment => (
+                                                                    <CustomTreeItem
+                                                                        key={payment.id}
+                                                                        itemId={payment.id}
+                                                                        label={payment.username} // Assuming correct property for label
+                                                                    />
+                                                                    ))
+                                                                ) : ''}
+                                                                </CustomTreeItem>
                                                             ))}
-                                                            </TreeItem>
-                                                        ))}
+                                                            </CustomTreeItem>
                                                         </SimpleTreeView>
                                                     </div> 
                                                 </div>
