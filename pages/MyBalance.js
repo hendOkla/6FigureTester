@@ -3,6 +3,7 @@ import NavbarUser from "@/components/_App/NavbarUser";
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
 import axios from "axios";
+import Link from "next/link";
 
 
 import IndeterminateCheckBoxRoundedIcon from '@mui/icons-material/IndeterminateCheckBoxRounded';
@@ -24,6 +25,8 @@ const courses = () => {
     const [secondFollowerLists, setSecondFollowerLists] = useState([]);
     const [totalSum, setTotalSum] = useState([]);
 
+    const [sumTotalCommission, setSumTotalCommission] = useState(0);
+
     
     let firstCounter = 0;
     let secondCounter = 0;
@@ -35,30 +38,32 @@ const courses = () => {
         }
         // Fetch data using axios
         const fetchData = async () => {
-        try {
-            const res = await axios.get(`/api/get-attendBy/${username}`);
-            if (res.data.status === 200) {
-            setFirstFollowerList(res.data.attendBy);
+            
 
-            // Iterate over each element of the matrix
-            const secondFollowerPromises = res.data.attendBy.map(async (element) => {
-                // Make a query for each element
-                const queryResult = await axios.get(`/api/get-attendBy/${element.username}`);
-                console.log(queryResult.data.dd);
-                return queryResult.data.attendBy;
+            try {
+                const res = await axios.get(`/api/get-attendBy/${username}`);
+                if (res.data.status === 200) {
+                setFirstFollowerList(res.data.attendBy);
 
-                
-            });
+                // Iterate over each element of the matrix
+                const secondFollowerPromises = res.data.attendBy.map(async (element) => {
+                    // Make a query for each element
+                    const queryResult = await axios.get(`/api/get-attendBy/${element.username}`);
+                    console.log(queryResult.data.dd);
+                    return queryResult.data.attendBy;
 
-            Promise.all(secondFollowerPromises).then((results) => {
-                setSecondFollowerLists(results);
-            });
-            } else {
-            console.log('Not welcome');
+                    
+                });
+
+                Promise.all(secondFollowerPromises).then((results) => {
+                    setSecondFollowerLists(results);
+                });
+                } else {
+                console.log('Not welcome');
+                }
+            } catch (error) {
+                console.log('Error:', error);
             }
-        } catch (error) {
-            console.log('Error:', error);
-        }
         };
         if (username) {
         fetchData();
@@ -160,7 +165,23 @@ const courses = () => {
       });
     }, [treeItems]); 
     
-
+    useEffect(() => {
+        let totalCommission = 0;
+        treeItems.forEach(item => {
+          if (item.created_at === item.updated_at) {
+            totalCommission += item.commission;
+          } else {
+            totalCommission += 25;
+          }
+      
+          if (fetchedData[item.id] && Array.isArray(fetchedData[item.id])) {
+            fetchedData[item.id].forEach(payment => {
+              totalCommission += payment.amount * 0.01;
+            });
+          }
+        });
+        setSumTotalCommission(totalCommission);
+      }, [treeItems, fetchedData]);
 
     
     return (
@@ -182,32 +203,43 @@ const courses = () => {
                                             <div className="blog-area">
                                                 <div className="container">
                                                 <div className="row">
-                                                    <div style={{ height: "50vh" }}>                                               
+                                                    <div>                                               
                                                         <SimpleTreeView
                                                         aria-label="customized"
                                                         defaultExpandedItems={['1']}
                                                         slots={{
-                                                        expandIcon: ExpandIcon,
-                                                        collapseIcon: CollapseIcon,
-                                                        endIcon: EndIcon,
+                                                            expandIcon: ExpandIcon,
+                                                            collapseIcon: CollapseIcon,
+                                                            endIcon: EndIcon,
                                                         }}
                                                         sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
                                                         >
-                                                            <CustomTreeItem key="1" itemId="1" label={username}>
+                                                            
+                                                            <Link href="#" className="btn btn-primary">
+                                                            Total Commission: {sumTotalCommission}
+                                                            </Link>
+                                                        <CustomTreeItem key="1" itemId="1" label={username}>
                                                             {treeItems.map(item => (
-                                                                <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
+                                                            <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
+                                                                <div style={{color:"#FFC107"}}>
+                                                                    Commission: {(item.created_at ===item.updated_at)?item.commission:25}
+                                                                </div>
                                                                 {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
-                                                                    fetchedData[item.id].map(payment => (
+                                                                fetchedData[item.id].map(payment => (
                                                                     <CustomTreeItem
-                                                                        key={payment.id}
-                                                                        itemId={payment.id}
-                                                                        label={payment.username} // Assuming correct property for label
-                                                                    />
-                                                                    ))
+                                                                    key={payment.id}
+                                                                    itemId={payment.id}
+                                                                    label={payment.username}
+                                                                    >
+                                                                    <div style={{color:"#FFC107"}}>
+                                                                        Commission: {payment.amount*0.01}
+                                                                    </div>
+                                                                    </CustomTreeItem>
+                                                                ))
                                                                 ) : ''}
-                                                                </CustomTreeItem>
-                                                            ))}
                                                             </CustomTreeItem>
+                                                            ))}
+                                                        </CustomTreeItem>
                                                         </SimpleTreeView>
                                                     </div> 
                                                 </div>
