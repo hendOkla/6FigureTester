@@ -1154,9 +1154,9 @@
   margin-right: 15px !important;
   padding-right: 18px !important;
   border-right: 1px dashed rgba(0, 0, 0, 0.4) !important;
-  margin-left: 0px;
-  padding-left: 0px;
-  border-left: 0px;
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+  border-left: 0px !important;
 }
 
 
