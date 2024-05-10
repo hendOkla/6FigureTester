@@ -1150,6 +1150,16 @@
   bottom: -3.5rem !important;
 }
 
+[dir=rtl] .css-16ebe3v-MuiTreeItem-root .MuiTreeItem-groupTransition {
+  margin-right: 15px !important;
+  padding-right: 18px !important;
+  border-right: 1px dashed rgba(0, 0, 0, 0.4) !important;
+  margin-left: 0px;
+  padding-left: 0px;
+  border-left: 0px;
+}
+
+
 
 
 
