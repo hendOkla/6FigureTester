@@ -78,7 +78,7 @@ export const Prepayment = (props) => {
           <input
               type="radio"
               id="2month"
-              value="2"
+              value="3"
               data-price="149.97"
               checked={selectedValue === '2'}
               onChange={handleRadioChange}

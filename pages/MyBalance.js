@@ -85,6 +85,8 @@ const courses = () => {
         }
     };
     }, [firstFollowerList]);
+
+
     const [translations, setTranslations] = useState(null);
     React.useEffect(() => {
         //for translation 
@@ -181,7 +183,7 @@ const courses = () => {
           }
         });
         setSumTotalCommission(totalCommission);
-      }, [treeItems, fetchedData]);
+    }, [treeItems, fetchedData]);
 
     
     return (
