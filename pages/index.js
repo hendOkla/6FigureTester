@@ -22,7 +22,7 @@ const PCRepair = () => {
 
             <CTA />
 
-            <Team />
+            {/* <Team /> */}
 
             <Feedback />
 
