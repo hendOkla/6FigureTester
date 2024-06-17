@@ -14,7 +14,7 @@ const RefundPolicy = () => {
                 <div className="container">
                     <h3>This Refund Policy was last updated on March 23, 2023.</h3>
                     <h3>Refunds</h3>
-                    <p>All sales are final and no refund will be is issued.</p>
+                    <p>Refunds can only be made in the first 48 hours after the registration</p>
                     <h3>Questions</h3>
                     <p>If you have any Questions concerning out return policy, Pleas contact us at:</p>
                     <p>+971545565988</p>
