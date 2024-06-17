@@ -244,7 +244,7 @@ export default function ServicesPay() {
                       <div className='row'><span className='offer'>Valentine's Day</span></div>  */}
                     <div className="price">
                       <span>
-                        <sup>$</sup>50.00{' '}
+                        <sup>$</sup>599.00{' '}
                       </span>
                     </div>
 {/*                     <div className="row">
@@ -254,7 +254,7 @@ export default function ServicesPay() {
                       <ul></ul>
                     </div>
                     <div className="pricing-footer">
-                      <button onClick={(e) => handleButtonClick(e,"50")} className="btn btn-primary" type="submit" name="amount"value ="50" role="link" >Pro</button>
+                      <button onClick={(e) => handleButtonClick(e,"599")} className="btn btn-primary" type="submit" name="amount"value ="599" role="link" >Pro</button>
                     </div>
                   </div>
                 </div>
