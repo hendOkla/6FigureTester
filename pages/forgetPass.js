@@ -32,35 +32,25 @@ const Login = () => {
 
         const data ={
             email :loginInput.email,
-            password :loginInput.password,
         }
           //CHECK IF PASSWORD EQUAL CONFIRM PASSWORD  
         axios.get(`/sanctum/csrf-cookie`).then(response=>{
-            axios.post(`/api/login-customer`,data).then(res=>{
-                console.log(res.data.message);
+            axios.post(`/api/resetPassword`,data).then(res=>{
+
+                console.log(res.data.status);
+                
                 if(res.data.status===200){
-                    localStorage.setItem('auth_token',res.data.token);
-                    localStorage.setItem('auth_token',res.data.fname); 
-                    localStorage.setItem('lname',res.data.lname); 
-                    localStorage.setItem('id',res.data.id);
-                    localStorage.setItem('username',res.data.username);
-                    localStorage.setItem('link',res.data.link); 
-                    localStorage.setItem('email',loginInput.email); 
-                    swal("Success",res.data.message,"success"); 
-                    if(localStorage.getItem(`course_id`)!==null){
-                        router.push({pathname: '/homeUser'});
-                    }else{
-                        router.push({pathname: '/homeUser'});
-                    }                    
-                }else if(res.data.status===401){
-                    swal("Warning",res.data.message,"warning");  
-                    setIsLoading(false);              
-                }else if(res.data.status===400){
-                    localStorage.setItem('username',res.data.username);
-                    localStorage.setItem('email',loginInput.email);
-                    router.push({pathname: '/ExpSub'});
+                    swal("Success",res.data.message,"success");  
+                    setIsLoading(false);          
+                }else if(res.data.status == 401){
+                    swal("Warning",res.data.message,"warning");   
+                    setIsLoading(false);                    
+                }else if(res.data.status===402){
+                    swal("Warning",res.data.message,"warning");   
+                    setIsLoading(false);
                 }else{
                     setLogin({...loginInput,error_list:res.data.validation_errors});
+                    setIsLoading(false);
                 }
             })
         })
@@ -77,7 +67,7 @@ const Login = () => {
         <>
             <Navbar />
 
-            <PageBanner pageTitle={translations ? (translations.form.login) : ('')}/>
+            <PageBanner pageTitle={translations ? (translations.form.PasswordReset) : ('')}/>
 
             <div className="ptb-80">
                 <div className="container">
@@ -86,29 +76,17 @@ const Login = () => {
                             <Link href="/it-startup">
                                 <img src="/images/logo.png" style={{width:'50%'}} />
                             </Link>
-                            <p>{translations ? (translations.form.dontHaveAccount) : ('')} 
-                            <Link href="/sign-up">{translations ? (translations.form.signUp) : ('')}</Link></p>
                         </div>
 
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
-                                <label className="form-label">{translations ? (translations.form.emailOrUsername) : ('')}</label>
-                                <input type="text"
-                                       className="form-control"
+                                <label className="form-label">{translations ? (translations.form.email) : ('')}</label>
+                                <input type="email"
+                                        className="form-control"
                                         name="email"
                                         onChange={handleInput}
                                 />
                                 <span className='span span-reg'>{loginInput.error_list.email}</span>
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">{translations ? (translations.form.pass) : ('')}</label>
-                                <input type="password" 
-                                    className="form-control"
-                                    name="password"
-                                    onChange={handleInput}
-                                />
-                                <span className='span span-reg'>{loginInput.error_list.password}</span>
                             </div>
                             {isLoading ? 
                                 (
@@ -119,13 +97,9 @@ const Login = () => {
                                         <span className="loading">Loading...</span>            
                                     </div>
                                 ) : (
-                                    <button type="submit" className="btn btn-primary">{translations ? (translations.form.login) : ('')}</button>                                
+                                    <button type="submit" className="btn btn-primary">{translations ? (translations.form.sendEmail) : ('')}</button>                                
                                 )
                             }
-                            <div className="auth-head">
-                                <p><Link href="/forgetPass">{translations ? (translations.form.forgetPass) : ('')}</Link></p>
-                            </div>
-
                         </form>
                         <div className="foot">
                             <p></p>

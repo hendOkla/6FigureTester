@@ -91,7 +91,10 @@
         "PTitle":"A community that shares opinions and analyzes with you on a daily basis and is ready to answer your questions and exchange ideas 24/7.",
         "renewal":"Subscription renewal",
         "linkSharing":"Link Sharing",
-        "MyBalance":"My Balance"
+        "MyBalance":"My Balance",
+        "PasswordReset":"PasswordReset",
+        "sendEmail":"send Email",
+        "emailOrUsername":"Email or Username"
 
 
 
