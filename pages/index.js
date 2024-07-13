@@ -6,7 +6,7 @@ import Services from '@/components/PCRepair/Services';
 import CTA from '@/components/PCRepair/CTA';
 import FunFactsArea from '@/components/Common/FunFactsArea';
 import Team from '@/components/PCRepair/Team';
-import Feedback from '@/components/Common/Feedback';
+import Feedback from '@/components/Common/FeedbackStyleTwo';
 import WhyChoose from '@/components/PCRepair/WhyChoose';
 import BlogPost from '@/components/Common/BlogPost';
 import Footer from "@/components/_App/Footer";

@@ -1,8 +1,49 @@
-import React from 'react';
+import React,{ useState } from 'react';
+import NavbarUser from "@/components/_App/NavbarUser";
+import { getDictionary } from "getDictionary";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
+import { Height } from '@mui/icons-material';
 
 const FeedbackStyleTwo = () => {
+    const router = useRouter();
+    const { locale } = router;
+  
+    const [reviewList,setReviewList] = useState([]);    
+    const [translations, setTranslations] = useState(null);
+
+    React.useEffect(() => {
+        //for translation 
+        async function fetchTranslations() {
+            const translations = await getDictionary(locale);
+            setTranslations(translations);
+        }        
+
+        const authToken = window.localStorage.getItem('auth_token');
+        if (authToken === null) {
+            router.push({pathname: '/login'});
+        }
+        setReviewList([]);       
+        fetchReviewList();   
+        fetchTranslations(); 
+    },[]);
+
+    function fetchReviewList(){
+        axios.get(`/api/displayReview` ).then(res=>{
+            /* console.log (id); */
+            if(res.data.status === 200){
+                setReviewList(res.data.reviews)
+                console.log(res.data.reviews);
+            }
+        });
+    } 
+
+
+
+
     return (
         <>
             <div className="feedback-area ptb-80">
@@ -25,65 +66,37 @@ const FeedbackStyleTwo = () => {
                             modules={[Pagination, Autoplay]}
                             className="testimonials-slides"
                         >
-                            <SwiperSlide>
-                                <div className="single-feedback-item">
-                                    <div className="client-info align-items-center">
-                                        <div className="image">
-                                            <img 
-                                                src="/images/client-image/client1.jpg"
-                                                alt="image"
-                                            />
-                                        </div>
 
-                                        <div className="title">
-                                            <h3>Steve Lucy</h3>
-                                            <span>Lead Developer at Envato</span>
-                                        </div>
-                                    </div>
 
-                                    <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </SwiperSlide>
-
-                            <SwiperSlide>
-                                <div className="single-feedback-item">
-                                    <div className="client-info align-items-center">
-                                        <div className="image">
-                                            <img 
-                                                src="/images/client-image/client2.jpg"
-                                                alt="image"
-                                            />
-                                        </div>
-
-                                        <div className="title">
-                                            <h3>David Luiz</h3>
-                                            <span>Lead Developer at Envato</span>
-                                        </div>
-                                    </div>
-
-                                    <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </SwiperSlide>
-
-                            <SwiperSlide>
-                                <div className="single-feedback-item">
-                                    <div className="client-info align-items-center">
-                                        <div className="image">
-                                            <img 
-                                                src="/images/client-image/client3.jpg"
-                                                alt="image"
-                                            />
-                                        </div>
-
-                                        <div className="title">
-                                            <h3>Marta Smith</h3>
-                                            <span>Lead Developer at Envato</span>
-                                        </div>
-                                    </div>
-
-                                    <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </SwiperSlide>
+                            {reviewList.length ? 
+                                (
+                                    reviewList.map((item)=>{
+                                        return(                                                            
+                                            <SwiperSlide>
+                                                <div className="single-feedback-item">
+                                                    <div className="client-info align-items-center">
+                                                        <div className="image">
+                                                            <img style={{width: '100px', height: '100px'}}
+                                                                src={item.image ? `https://6figure-earner.com/LarReApi/public/${item.image}` : '/images/logo.png'}
+                                                                alt="image"
+                                                            />
+                                                        </div>
+                                                        <div className="title">
+                                                            <h3>{item.username || 'Unknown'}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <p>{item[`review`]}</p>
+                                                </div>
+                                            </SwiperSlide>                                                          
+                                        )
+                                    })
+                                ) : (
+                                    <div className="section-title">
+                                        <h4>there is no review yet</h4>
+                                    </div>                        
+                                )
+                            }
+                            
                         </Swiper>
                     </div>
                 </div>

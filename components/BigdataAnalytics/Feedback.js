@@ -6,7 +6,7 @@ const Feedback = () => {
       <div className="bigdata-feedback-area pt-80 pb-50">
         <div className="container">
           <div className="section-title">
-            <h2>What Users Saying</h2>
+            <h2>What Users Sayingsssssssss</h2>
             <div className="bar"></div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

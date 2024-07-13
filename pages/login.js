@@ -94,9 +94,9 @@ const Login = () => {
                             <div className="mb-3">
                                 <label className="form-label">{translations ? (translations.form.emailOrUsername) : ('')}</label>
                                 <input type="text"
-                                       className="form-control"
-                                        name="email"
-                                        onChange={handleInput}
+                                    className="form-control"
+                                    name="email"
+                                    onChange={handleInput}
                                 />
                                 <span className='span span-reg'>{loginInput.error_list.email}</span>
                             </div>

@@ -9,6 +9,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt  } from '@fortawesome/free-solid-svg-icons';
+import { faBitcoinSign  } from '@fortawesome/free-solid-svg-icons';
 
 import { getDictionary } from "getDictionary";
 import { useRouter } from 'next/router';
@@ -301,9 +303,17 @@ const NavbarUser = () => {
                 <li className={`list ${currentPath === `/MyBalance/` && "selected"}`}  onClick={handleItemClick}>
                     <Link href={{ pathname:'/MyBalance/'}} >
                         <span className="icon">
-                        <span className="icon"><FontAwesomeIcon icon={faHome}/></span>
+                        <span className="icon"><FontAwesomeIcon icon={faBitcoinSign}/></span>
                         </span>
                         <span className="title">{translations ? (translations.form.MyBalance) : ('')}</span>
+                    </Link>
+                </li>
+                <li className={`list ${currentPath === `/MyReview/` && "selected"}`}  onClick={handleItemClick}>
+                    <Link href={{ pathname:'/MyReview/'}} >
+                        <span className="icon">
+                        <span className="icon"><FontAwesomeIcon icon={faCommentAlt }/></span>
+                        </span>
+                        <span className="title">{translations ? (translations.form.MyReview) : ('')}</span>
                     </Link>
                 </li>
                 
