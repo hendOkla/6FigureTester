@@ -48,9 +48,6 @@ const myProfile = () => {
         })
     },[id]);
 
- 
-
-    
     return (
         <>
             {translations ? (
@@ -70,7 +67,7 @@ const myProfile = () => {
                                             <div className="auth-form">
                                                 <div className="auth-head">
                                                     <Link href="/it-startup">
-                                                    <img src={`https://6figure-earner.com/LarReApi/public/${CustomerInput.image}`} alt='not uploaded image for user ' width='100px' height='100px'/>
+                                                    <img src={`https://6figure-earner.com/LarReApi/public/uploads/customer/${CustomerInput.image}`} alt='not uploaded image for user ' width='100px' height='100px'/>
                                                     </Link>
                                                 </div>
                                                 <form >

@@ -21,11 +21,6 @@ const FeedbackStyleTwo = () => {
             const translations = await getDictionary(locale);
             setTranslations(translations);
         }        
-
-        const authToken = window.localStorage.getItem('auth_token');
-        if (authToken === null) {
-            router.push({pathname: '/login'});
-        }
         setReviewList([]);       
         fetchReviewList();   
         fetchTranslations(); 

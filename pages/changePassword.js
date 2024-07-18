@@ -115,57 +115,57 @@ const changePassword = () => {
                                             <div className="bar"></div>
                                         </div>      
                                         <div className="ptb-80">
-                <div className="container">
-                    <div className="auth-form">
-                        <div className="auth-head">
-                            <Link href="/it-startup">
-                                <img src="/images/logo.png" style={{width:'50%'}} />
-                            </Link>
-                        </div>
-                        <form onSubmit={handleSubmit} >
-                            <div className="mb-3">
-                                <label className="form-label">Old Password</label>
-                                <input type="password" 
-                                    className="form-control"
-                                    name="oldPass"
-                                    onChange={handleInput}
-                                />
-                                <span className='span'>{errorList.oldPass}</span>
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">New Password</label>
-                                <input type="password" 
-                                    className="form-control"
-                                    name="newPass"
-                                    onChange={handleInput}
-                                />
-                                <span className='span'>{errorList.newPass}</span>
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Confirm Password</label>
-                                <input type="password" 
-                                    className="form-control"
-                                    name="confPass"
-                                    onChange={handleInput}
-                                />
-                                <span className='span'>{errorConf}</span>
-                            </div>
-                            {isLoading ? 
-                                (
-                                    <div className="containerLoadin" style={{height:'30vh'}}>
-                                        <div className="ring"></div>
-                                        <div className="ring"></div>
-                                        <div className="ring"></div>
-                                        <span className="loading">Loading...</span>            
-                                    </div>
-                                ) : (
-                                    <button type="submit" className="btn btn-primary">Change</button>                                
-                                )
-                            }
-                        </form>
-                    </div>
-                </div>
-            </div> 
+                                            <div className="container">
+                                                <div className="auth-form">
+                                                    <div className="auth-head">
+                                                        <Link href="/it-startup">
+                                                            <img src="/images/logo.png" style={{width:'50%'}} />
+                                                        </Link>
+                                                    </div>
+                                                    <form onSubmit={handleSubmit} >
+                                                        <div className="mb-3">
+                                                            <label className="form-label">Old Password</label>
+                                                            <input type="password" 
+                                                                className="form-control"
+                                                                name="oldPass"
+                                                                onChange={handleInput}
+                                                            />
+                                                            <span className='span'>{errorList.oldPass}</span>
+                                                        </div>
+                                                        <div className="mb-3">
+                                                            <label className="form-label">New Password</label>
+                                                            <input type="password" 
+                                                                className="form-control"
+                                                                name="newPass"
+                                                                onChange={handleInput}
+                                                            />
+                                                            <span className='span'>{errorList.newPass}</span>
+                                                        </div>
+                                                        <div className="mb-3">
+                                                            <label className="form-label">Confirm Password</label>
+                                                            <input type="password" 
+                                                                className="form-control"
+                                                                name="confPass"
+                                                                onChange={handleInput}
+                                                            />
+                                                            <span className='span'>{errorConf}</span>
+                                                        </div>
+                                                        {isLoading ? 
+                                                            (
+                                                                <div className="containerLoadin" style={{height:'30vh'}}>
+                                                                    <div className="ring"></div>
+                                                                    <div className="ring"></div>
+                                                                    <div className="ring"></div>
+                                                                    <span className="loading">Loading...</span>            
+                                                                </div>
+                                                            ) : (
+                                                                <button type="submit" className="btn btn-primary">Change</button>                                
+                                                            )
+                                                        }
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </div>
                                 </div>                                
                             </div>                            

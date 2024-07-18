@@ -39,6 +39,7 @@ const NavbarUser = () => {
     const [BookList,setBookList] = useState([]);
     const [translations, setTranslations] = useState(null);
     const { pathname, query } = router;
+    const [CustomerInput,  setCustomer] = useState([]);
 
     const handleToggle = () => {
         const navigation = document.querySelector(".navigation");
@@ -62,10 +63,21 @@ const NavbarUser = () => {
 
     useEffect(() => {
         const authToken = window.localStorage.getItem('auth_token');
+        
         const { id } = router.query;
         if (authToken === null) {router.push({pathname: '/login'});};
         fetchCategoryList(); 
         fetchBookList(); 
+
+        axios.get(`/api/edit-customer/${localStorage.getItem('id')}`).then(res=>{
+            if(res.data.status === 200){
+                setCustomer(res.data.customer);
+                
+            }
+        }); 
+
+
+        
         
         //for translation 
         async function fetchTranslations() {
@@ -206,6 +218,12 @@ const NavbarUser = () => {
                                 </a>
                             </li>
                             <li className = 'dropdownItem'>                            
+                                <a href="/changeImage/">
+                                    <span className="icon"><FontAwesomeIcon icon={faLock}/></span>
+                                    Change profile image 
+                                </a>
+                            </li>
+                            <li className = 'dropdownItem'>                            
                                 <a href="#" onClick={handleLogout}>
                                     <span className="icon"><FontAwesomeIcon icon={faSignOutAlt}/></span>
                                     LogOut
@@ -219,10 +237,10 @@ const NavbarUser = () => {
         
         <div className="navigation">
             <ul>
-                <li>
+                <li style={{paddingTop:"10px"}}>
                     <a href="#">
                         <span className="icon">
-                        <img src="/images/logo-sidebar.png" alt="logo" style={{width:'30px'}} />
+                            <img src={CustomerInput.image ? `https://6figure-earner.com/LarReApi/public/${CustomerInput.image}` : '/images/logo-sidebar.png'} alt="logo" style={{width:'60px',borderRadius:"50%"}} />
                         </span>
                         <span className="title">6Figure Earner</span>
                     </a>
