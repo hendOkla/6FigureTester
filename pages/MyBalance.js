@@ -189,144 +189,142 @@ const courses = () => {
     return (
         <>
             {translations ? (
-                <>
-                    <NavbarUser />
-                    <div className="main">
-                        <div className="cardBox">
-                            <div className="container">
-                                <div className="hosting-features-area pt-80 pb-50 bg-f9f6f6">
-                                    <div className="container">
-                                        <div className="section-title">
-                                            <h2>{translations ? (translations.form.MyBalance) : ('')}</h2>
-                                            
-                                            
-                                        </div>
-                                        <div className="row">
-                                            <div className="blog-area">
-                                                <div className="container">
-                                                <div className="row">
-                                                    <div>                                               
-                                                        <SimpleTreeView
-                                                        aria-label="customized"
-                                                        defaultExpandedItems={['1']}
-                                                        slots={{
-                                                            expandIcon: ExpandIcon,
-                                                            collapseIcon: CollapseIcon,
-                                                            endIcon: EndIcon,
-                                                        }}
-                                                        sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
-                                                        >
-                                                            
-                                                            <Link href="#" className="btn btn-primary">
-                                                            Total Commission: {sumTotalCommission}
-                                                            </Link>
-                                                        <CustomTreeItem key="1" itemId="1" label={username}>
-                                                            {treeItems.map(item => (
-                                                            <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
-                                                                <div style={{color:"#FFC107"}}>
-                                                                    Commission: {(item.created_at ===item.updated_at)?item.commission:25}
-                                                                </div>
-                                                                {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
-                                                                fetchedData[item.id].map(payment => (
-                                                                    <CustomTreeItem
-                                                                    key={payment.id}
-                                                                    itemId={payment.id}
-                                                                    label={payment.username}
-                                                                    >
-                                                                    <div style={{color:"#FFC107"}}>
-                                                                        Commission: {payment.amount*0.01}
-                                                                    </div>
-                                                                    </CustomTreeItem>
-                                                                ))
-                                                                ) : ''}
-                                                            </CustomTreeItem>
-                                                            ))}
-                                                        </CustomTreeItem>
-                                                        </SimpleTreeView>
-                                                    </div> 
-                                                </div>
-                                                <div className='row'>
-                                                    <div className="cart-table table-responsive" style={{ margin: '0 auto', width: '75%' }}>
-                                                        <table className="table table-bordered">
-                                                            <thead style={{color:'white'}}>
-                                                                <tr>
-                                                                    <th className='tb-text' scope="col" style={{fontSize:"30px"}}  colSpan="3"> 
-                                                                        <h2>Company Bonus</h2>
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text">X5</td> 
-                                                                    <td className='tb-text'>500$</td>  
-                                                                    <td className='tb-text'>{(firstCounter>=5)?firstCounter:'0'}</td>                            
-                                                                </tr>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text"> X10</td>   
-                                                                    <td className='tb-text'>MACBOOK AIR</td>       
-                                                                    <td className='tb-text'>{(firstCounter>=10)?firstCounter:'0'}</td>                         
-                                                                </tr>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text">X20</td>     
-                                                                    <td className='tb-text'>PAID TRIP + 500%</td>  
-                                                                    <td className='tb-text'>{(firstCounter>=20)?firstCounter:'0'}</td>                                                          
-                                                                </tr>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text">X30</td>   
-                                                                    <td className='tb-text'>2500$</td>   
-                                                                    <td className='tb-text'>
-                                                                    {firstCounter >= 15 && (firstCounter + secondCounter) >= 30 ? (
-                                                                        <React.Fragment>
-                                                                        {firstCounter + secondCounter}
-                                                                        <br/>Congratulations
-                                                                        </React.Fragment>
-                                                                    ) : (
-                                                                        '0'
-                                                                    )}
-                                                                    </td> 
+              <>
+                <NavbarUser />
+                <div className="main">
+                  <div className="cardBox">
+                    <div className="container">
+                      <div className="hosting-features-area pt-80 pb-50 bg-f9f6f6">
+                        <div className="container">
+                          <div className="section-title">
+                            <h2>{translations ? (translations.form.MyBalance) : ('')}</h2>                                            
+                          </div>
+                          <div className="row">
+                            <div className="blog-area">
+                              <div className="container">
+                              <div className="row">
+                                <div>                                               
+                                  <SimpleTreeView
+                                  aria-label="customized"
+                                  defaultExpandedItems={['1']}
+                                  slots={{
+                                      expandIcon: ExpandIcon,
+                                      collapseIcon: CollapseIcon,
+                                      endIcon: EndIcon,
+                                  }}
+                                  sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
+                                  >
+                                      
+                                  <Link href="#" className="btn btn-primary">
+                                    Total Commission: {sumTotalCommission}
+                                  </Link>
+                                  <CustomTreeItem key="1" itemId="1" label={username}>
+                                      {treeItems.map(item => (
+                                      <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
+                                          <div style={{color:"#FFC107"}}>
+                                              Commission: {(item.created_at ===item.updated_at)?item.commission:25}
+                                          </div>
+                                          {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
+                                          fetchedData[item.id].map(payment => (
+                                              <CustomTreeItem
+                                              key={payment.id}
+                                              itemId={payment.id}
+                                              label={payment.username}
+                                              >
+                                              <div style={{color:"#FFC107"}}>
+                                                  Commission: {payment.amount*0.01}
+                                              </div>
+                                              </CustomTreeItem>
+                                          ))
+                                          ) : ''}
+                                      </CustomTreeItem>
+                                      ))}
+                                  </CustomTreeItem>
+                                  </SimpleTreeView>
+                                </div> 
+                              </div>
+                              <div className='row'>
+                                  <div className="cart-table table-responsive" style={{ margin: '0 auto', width: '75%' }}>
+                                      <table className="table table-bordered">
+                                          <thead style={{color:'white'}}>
+                                              <tr>
+                                                  <th className='tb-text' scope="col" style={{fontSize:"30px"}}  colSpan="3"> 
+                                                      <h2>Company Bonus</h2>
+                                                  </th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text">X5</td> 
+                                                  <td className='tb-text'>500$</td>  
+                                                  <td className='tb-text'>{(firstCounter>=5)?firstCounter:'0'}</td>                            
+                                              </tr>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text"> X10</td>   
+                                                  <td className='tb-text'>MACBOOK AIR</td>       
+                                                  <td className='tb-text'>{(firstCounter>=10)?firstCounter:'0'}</td>                         
+                                              </tr>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text">X20</td>     
+                                                  <td className='tb-text'>PAID TRIP + 500%</td>  
+                                                  <td className='tb-text'>{(firstCounter>=20)?firstCounter:'0'}</td>                                                          
+                                              </tr>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text">X30</td>   
+                                                  <td className='tb-text'>2500$</td>   
+                                                  <td className='tb-text'>
+                                                  {firstCounter >= 15 && (firstCounter + secondCounter) >= 30 ? (
+                                                      <React.Fragment>
+                                                      {firstCounter + secondCounter}
+                                                      <br/>Congratulations
+                                                      </React.Fragment>
+                                                  ) : (
+                                                      '0'
+                                                  )}
+                                                  </td> 
 
-                                                                </tr>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text">X60</td>         
-                                                                    <td className='tb-text'>ROLEX</td>   
-                                                                    <td className='tb-text'>
-                                                                        {firstCounter >= 30 && (firstCounter + secondCounter) >= 60 ? (
-                                                                        <React.Fragment>
-                                                                            {firstCounter + secondCounter}
-                                                                            <br/>Congratulations
-                                                                        </React.Fragment>
-                                                                        ) : (
-                                                                        '0'
-                                                                        )}
-                                                                    </td>                    
-                                                                </tr>
-                                                                <tr >
-                                                                    <td className="product-thumbnail tb-text">X150</td>    
-                                                                    <td className='tb-text'>CAR WORTH 15.000$</td>      
-                                                                    <td className='tb-text'>
-                                                                    {firstCounter >= 75 && (firstCounter + secondCounter) >= 150 ? (
-                                                                        <React.Fragment>
-                                                                        {firstCounter + secondCounter}
-                                                                        <br/>Congratulations
-                                                                        </React.Fragment>
-                                                                    ) : (
-                                                                        '0'
-                                                                    )}
-                                                                    </td>                 
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>                                          
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </div>                            
+                                              </tr>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text">X60</td>         
+                                                  <td className='tb-text'>ROLEX</td>   
+                                                  <td className='tb-text'>
+                                                      {firstCounter >= 30 && (firstCounter + secondCounter) >= 60 ? (
+                                                      <React.Fragment>
+                                                          {firstCounter + secondCounter}
+                                                          <br/>Congratulations
+                                                      </React.Fragment>
+                                                      ) : (
+                                                      '0'
+                                                      )}
+                                                  </td>                    
+                                              </tr>
+                                              <tr >
+                                                  <td className="product-thumbnail tb-text">X150</td>    
+                                                  <td className='tb-text'>CAR WORTH 15.000$</td>      
+                                                  <td className='tb-text'>
+                                                  {firstCounter >= 75 && (firstCounter + secondCounter) >= 150 ? (
+                                                      <React.Fragment>
+                                                      {firstCounter + secondCounter}
+                                                      <br/>Congratulations
+                                                      </React.Fragment>
+                                                  ) : (
+                                                      '0'
+                                                  )}
+                                                  </td>                 
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                              </div>
+                            </div>                                          
+                          </div>
                         </div>
-                    </div>                                 
-                </>
+                      </div>                                
+                    </div>                            
+                  </div>
+                </div>                                 
+              </>
             ) : (
             ''
             )}
