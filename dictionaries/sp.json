@@ -95,7 +95,11 @@
         "PasswordReset":"PasswordReset",
         "sendEmail":"send Email",
         "emailOrUsername":"Email or Username",
-        "MyReview": "My review"
+        "MyReview": "My review",
+        "allSales": "All sales",
+        "myTeam":"My team",
+        "paymentMethods":"payment methods"
+        
 
 
 

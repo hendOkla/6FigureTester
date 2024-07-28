@@ -95,7 +95,10 @@
         "PasswordReset":"إعادة تعيين كلمة المرور",
         "sendEmail":"إرسالة رسالة للبريد الإلكتروني",
         "emailOrUsername":"البريد الالكتروني أو اسم المستخدم",
-        "MyReview": "تقييمي"
+        "MyReview": "تقييمي",
+        "allSales": "اجمالي المبيعات",
+        "myTeam":"فريقي",
+        "paymentMethods":"طرق الدفع "
         
 
 

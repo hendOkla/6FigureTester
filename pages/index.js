@@ -17,7 +17,9 @@ const PCRepair = () => {
             <AboutUsContent />
 
             <CTA />
-            <SliderVideo/>
+
+            {/* <SliderVideo/> */}
+
             <Feedback />
 
             <Footer />
