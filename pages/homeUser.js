@@ -58,7 +58,7 @@ const homeUser = () => {
                                             <Carousel.Item>
                                                 <img
                                                     className="d-block w-100"
-                                                    src="https://d1krbhyfejrtpz.cloudfront.net/blog/wp-content/uploads/2022/07/07133628/Automated-Forex-Trading-Software-Development-A-Complete-Guide-4-1024x497.jpg"
+                                                    src="/images/banner-2.png"
                                                     alt="Second slide"
                                                 />
                                             </Carousel.Item>
