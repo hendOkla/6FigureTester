@@ -51,7 +51,7 @@ const courses = () => {
               const secondFollowerPromises = res.data.attendBy.map(async (element) => {
                   // Make a query for each element
                   const queryResult = await axios.get(`/api/get-attendBy/${element.username}`);
-                  console.log(queryResult.data.dd);
+                  /* console.log(queryResult.data.dd); */
                   return queryResult.data.attendBy;                    
               });
               Promise.all(secondFollowerPromises).then((results) => {
