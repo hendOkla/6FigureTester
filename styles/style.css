@@ -8875,3 +8875,20 @@ body {
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+.offer{
+  font-weight: 800;
+  font-size: 25px;
+  font-style: italic;
+  color: #ff006c;  
+}
+.offer-name{
+  font-size: 20px;
+  font-style: italic;
+  color: #ff006c;  
+}
+.price-offer{
+  text-decoration: line-through;
+  text-decoration-color: red;
+  font-size: 20px;
+}

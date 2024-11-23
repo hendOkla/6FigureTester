@@ -19,14 +19,14 @@ export const PaymentMethods
             InvoiceValue:value,
             DisplayCurrencyIso: 'USD',
             CustomerEmail: localStorage.getItem('email')
-          }
+        }
     
-          axios.get(`/api/create`, { params: data }).then(res=>{
+        axios.get(`/api/create`, { params: data }).then(res=>{
     
             const invoiceURL = res.data.Data.invoiceURL;
             
             window.location.href = res.data.Data.invoiceURL;
-          });
+        });
     }
 
     

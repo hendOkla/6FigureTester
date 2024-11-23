@@ -157,7 +157,19 @@ const courses = () => {
     const [fetchedTotalData, setFetchedTotalData] = useState({}); // Additional data per item
   
     useEffect(() => {
-   
+      // Assuming treeItems contains data with usernames
+      treeItems.forEach(item => {
+        const fetchData = async () => {
+          const response = await axios.get(`/api/countWeek/${item.username}`);
+          if (response.status === 200) {
+            setFetchedData(prevData => ({
+              ...prevData,
+              [item.id]: response.data.payment, // Assume data is in response.data.payment
+            }));
+          }
+        };
+        fetchData();
+      });
 
       // Assuming total treeItems contains data with usernames
       axiosRetry(axios, {
@@ -187,7 +199,7 @@ const courses = () => {
 
 
 
-    }, [ totalTreeItems]); 
+    }, [treeItems, totalTreeItems]); 
     
     useEffect(() => {
         let totalCommission = 0;
@@ -268,7 +280,28 @@ const courses = () => {
                                         <Link href="#" className="btn btn-primary">
                                           Total Commission: {sumTotalCommission}
                                         </Link>
-                                       
+                                        <CustomTreeItem key="1" itemId="1" label={username}>
+                                            {treeItems.map(item => (
+                                            <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
+                                                <div style={{color:"#FFC107"}}>
+                                                    Commission: {(item.created_at ===item.updated_at)?item.commission:25}
+                                                </div>
+                                                {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
+                                                fetchedData[item.id].map(payment => (
+                                                    <CustomTreeItem
+                                                    key={payment.id}
+                                                    itemId={payment.id}
+                                                    label={payment.username}
+                                                    >
+                                                    <div style={{color:"#FFC107"}}>
+                                                        Commission: {payment.amount*0.01}
+                                                    </div>
+                                                    </CustomTreeItem>
+                                                ))
+                                                ) : ''}
+                                            </CustomTreeItem>
+                                            ))}
+                                        </CustomTreeItem>
                                         </SimpleTreeView>
                                       </div> 
                                     </div>
@@ -393,7 +426,27 @@ const courses = () => {
                                           sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
                                           >
                                           <CustomTreeItem key="1" itemId="1" label={username}>
-                                             
+                                              {totalTreeItems.map(itemTotal => (
+                                                <CustomTreeItem key={itemTotal.id} itemId={itemTotal.id} label={itemTotal.username}>
+                                                  <div style={{color:"#FFC107"}}>
+                                                      Commission: {(itemTotal.created_at ===itemTotal.updated_at)?itemTotal.commission:25}
+                                                  </div>
+                                                  {fetchedTotalData[itemTotal.id] && Array.isArray(fetchedTotalData[itemTotal.id]) ? (
+                                                  fetchedTotalData[itemTotal.id].map(payment => (
+                                                      <CustomTreeItem
+                                                      key={payment.id}
+                                                      itemId={payment.id}
+                                                      label={payment.username}
+                                                      >
+                                                      <div style={{color:"#FFC107"}}>
+                                                          Commission: {payment.amount*0.01}
+                                                      </div>
+                                                      </CustomTreeItem>
+                                                  ))
+                                                  ) : ''}
+
+                                                </CustomTreeItem>
+                                              ))}
                                           </CustomTreeItem>
                                           </SimpleTreeView>
                                         </div> 
