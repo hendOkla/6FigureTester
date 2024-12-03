@@ -46,7 +46,7 @@ const Login = () => {
                     localStorage.setItem('username',res.data.username);
                     localStorage.setItem('link',res.data.link); 
                     localStorage.setItem('image',res.data.image); 
-                    localStorage.setItem('email',loginInput.email); 
+                    localStorage.setItem('email',res.data.email); 
                     swal("Success",res.data.message,"success"); 
                     if(localStorage.getItem(`course_id`)!==null){
                         router.push({pathname: '/homeUser'});
@@ -58,7 +58,8 @@ const Login = () => {
                     setIsLoading(false);              
                 }else if(res.data.status===400){
                     localStorage.setItem('username',res.data.username);
-                    localStorage.setItem('email',loginInput.email);
+                    localStorage.setItem('email',res.data.email);
+                    console.log(res.data.email);
                     router.push({pathname: '/ExpSub'});
                 }else{
                     setLogin({...loginInput,error_list:res.data.validation_errors});
