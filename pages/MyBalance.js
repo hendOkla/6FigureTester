@@ -133,8 +133,8 @@ const courses = () => {
     useEffect(() => {
         axios.get(`/api/countWeek/${localStorage.getItem('username')}`)
           .then(res => {
-            const data = res.data.payment;
-            setTreeItems(data);
+            const data = res.data.payment || [];
+            setTreeItems(data);            
         })
         .catch(error => {
           console.error('Error fetching data:', error);
