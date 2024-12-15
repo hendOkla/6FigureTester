@@ -22,9 +22,7 @@ export const PaymentMethods
         }
     
         axios.get(`/api/create`, { params: data }).then(res=>{
-    
             const invoiceURL = res.data.Data.invoiceURL;
-            
             window.location.href = res.data.Data.invoiceURL;
         });
     }
