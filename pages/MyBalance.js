@@ -281,7 +281,7 @@ const courses = () => {
                                           Total Commission: {sumTotalCommission}
                                         </Link>
                                         <CustomTreeItem key="1" itemId="1" label={username}>
-                                            {treeItems.map(item => (
+                                            {Array.isArray(treeItems) && treeItems.map(item => (
                                             <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
                                                 <div style={{color:"#FFC107"}}>
                                                     Commission: {(item.created_at ===item.updated_at)?item.commission:25}
