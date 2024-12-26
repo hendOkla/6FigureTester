@@ -30,11 +30,18 @@ const courses = () => {
     const [sumTotalTeamCommission, setSumTotalTeamCommission] = useState(0);
 
 
-    const [key, setKey] = useState('MyBalance');
-
+    const [key, setKey] = useState('MyBalance');    
     
     let firstCounter = 0;
     let secondCounter = 0;
+
+    const formatTimestampToDate = (timestamp) => {
+      const date = new Date(timestamp); // Convert timestamp to Date object
+      const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with zero if needed
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month (0-indexed) and pad
+      const year = date.getFullYear(); // Get full year
+      return `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+    };
     useEffect(() => {
         // Get username from storage
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -205,14 +212,12 @@ const courses = () => {
         let totalCommission = 0;
         let totalTeamCommission = 0;
 
-
         treeItems.forEach(item => {
-          if (item.created_at === item.updated_at) {
-            totalCommission += item.commission;
+          if (formatTimestampToDate(item.created_at) === formatTimestampToDate(item.updatePayment_at)) {
+            totalCommission += Math.floor(item.amount*0.15);
           } else {
             totalCommission += 25;
           }
-      
           if (fetchedData[item.id] && Array.isArray(fetchedData[item.id])) {
             fetchedData[item.id].forEach(payment => {
               totalCommission += payment.amount * 0.01;
@@ -226,8 +231,7 @@ const courses = () => {
             totalTeamCommission += item.commission;
           } else {
             totalTeamCommission += 25;
-          }
-      
+          }      
           if (fetchedTotalData[item.id] && Array.isArray(fetchedTotalData[item.id])) {
             fetchedTotalData[item.id].forEach(payment => {
               totalTeamCommission += payment.amount * 0.01;
@@ -235,11 +239,7 @@ const courses = () => {
           }
         });
         setSumTotalTeamCommission(totalTeamCommission);
-
-
     }, [treeItems, fetchedData,totalTreeItems, fetchedTotalData ]);
-
-    
     return (
         <>
             {translations ? (
@@ -284,20 +284,20 @@ const courses = () => {
                                             {Array.isArray(treeItems) && treeItems.map(item => (
                                             <CustomTreeItem key={item.id} itemId={item.id} label={item.username}>
                                                 <div style={{color:"#FFC107"}}>
-                                                    Commission: {(item.created_at ===item.updated_at)?item.commission:25}
+                                                    Commission: {(formatTimestampToDate(item.created_at) == formatTimestampToDate(item.updatePayment_at))? Math.floor(item.amount*0.15) :25 }
                                                 </div>
                                                 {fetchedData[item.id] && Array.isArray(fetchedData[item.id]) ? (
-                                                fetchedData[item.id].map(payment => (
-                                                    <CustomTreeItem
-                                                    key={payment.id}
-                                                    itemId={payment.id}
-                                                    label={payment.username}
-                                                    >
-                                                    <div style={{color:"#FFC107"}}>
-                                                        Commission: {payment.amount*0.01}
-                                                    </div>
-                                                    </CustomTreeItem>
-                                                ))
+                                                  fetchedData[item.id].map(payment => (
+                                                      <CustomTreeItem
+                                                      key={payment.id}
+                                                      itemId={payment.id}
+                                                      label={payment.username}
+                                                      >
+                                                      <div style={{color:"#FFC107"}}>
+                                                          Commission: {payment.amount*0.01}
+                                                      </div>
+                                                      </CustomTreeItem>
+                                                  ))
                                                 ) : ''}
                                             </CustomTreeItem>
                                             ))}
